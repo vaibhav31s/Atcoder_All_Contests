@@ -1,4 +1,4 @@
-package com.company.Beginer288;
+package com.company.Beginner289;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -8,21 +8,33 @@ import java.util.*;
 
 import static java.lang.System.out;
 
-public class B {
+public class D {
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
+        int[] arr = readarr(sc, n);
         int m = sc.nextInt();
-        PriorityQueue<String> s = new PriorityQueue<>();
-        for(int i = 0; i < t; i++) {
-            if(i >= m) continue;
-            s.add(sc.next());
-        }
-        while (m-->0) out.println(s.poll());
+        int[] traps = readarr(sc, m);
+        int xx = sc.nextInt();
+        HashMap<Integer,Boolean> map = new HashMap<>();
+       boolean answer =  dfss(arr, traps, 0,xx,map);
+        if(answer) yes();
+        else no();
 
     }
 
-
+    private static boolean dfss(int[] arr, int[] traps, int cur,int x, HashMap<Integer, Boolean> map) {
+        if(cur > x) return false;
+        if(Arrays.binarySearch(traps, cur) >= 0) return false;
+        if(cur == x ) return true;
+        if(map.containsKey(cur)) return map.get(cur);
+        boolean ans= false;
+        for(int xx : arr){
+            ans |= dfss(arr, traps, cur+xx,x, map);
+        }
+        map.put(cur, ans);
+        return ans;
+    }
 
     private static int allFourMatrix(char[][] arr, int i, int j) {
         int n = arr.length;

@@ -1,4 +1,4 @@
-package com.company.Beginer288;
+package com.company.Beginner289;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -8,21 +8,50 @@ import java.util.*;
 
 import static java.lang.System.out;
 
-public class B {
+public class C {
+    static int answer1 = 0;
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
         int m = sc.nextInt();
-        PriorityQueue<String> s = new PriorityQueue<>();
-        for(int i = 0; i < t; i++) {
-            if(i >= m) continue;
-            s.add(sc.next());
+        ArrayList<HashSet<Integer>> fullset = new ArrayList<>();
+        for(int i = 0; i < m; i++){
+            int c = sc.nextInt();
+            HashSet<Integer> set = new HashSet<>();
+            while(c-->0) set.add(sc.nextInt());
+            fullset.add(set);
         }
-        while (m-->0) out.println(s.poll());
 
+
+        int answer= 0;
+        for(int i = 1; i <= 2048; i++){
+            StringBuilder input1 = new StringBuilder(Integer.toBinaryString(i));
+            String a = input1.reverse().toString();
+
+            HashSet<Integer> set = new HashSet<>();
+            if(a.length() > m)break;
+            for(int j= 0; j < a.length(); j++){
+                if(a.charAt(j)=='1'){
+                    set.addAll(fullset.get(j));
+                }
+            }
+            if(set.size() == n) answer++;
+
+        }
+
+
+
+
+        out.println(answer);
     }
 
-
+//    private static int dfss(ArrayList<HashSet<Integer>> fullset, int index) {
+//        if(index >= fullset.size()) return 0;
+//        HashSet<Integer> set = new HashSet<>()
+//        int pick = dfss(fullset, index);
+//        int notPick = dfss(fullset, index+1);
+//
+//    }
 
     private static int allFourMatrix(char[][] arr, int i, int j) {
         int n = arr.length;

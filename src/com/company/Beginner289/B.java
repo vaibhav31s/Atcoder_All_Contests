@@ -1,4 +1,4 @@
-package com.company.Beginer288;
+package com.company.Beginner289;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -11,18 +11,61 @@ import static java.lang.System.out;
 public class B {
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
         int m = sc.nextInt();
-        PriorityQueue<String> s = new PriorityQueue<>();
-        for(int i = 0; i < t; i++) {
-            if(i >= m) continue;
-            s.add(sc.next());
+        int[] arr = readarr(sc, m);
+        DSU dsu = new DSU(n);
+        for(int x : arr){
+            dsu.merge(x,x+1);
         }
-        while (m-->0) out.println(s.poll());
+//        out.println(Arrays.toString(dsu.dsu));
+        TreeMap<Integer,PriorityQueue<Integer> > map = new TreeMap<>();
+        for(int i = 1; i <= n; i++){
+            int root = dsu.find(i);
+            map.putIfAbsent(root, new PriorityQueue<>(Collections.reverseOrder()));
+            map.get(root).add(i);
+        }
+//        out.println(map);
+
+        for(PriorityQueue<Integer> pq : map.values()){
+            while (!pq.isEmpty()) {
+                out.print(pq.poll()+ " ");
+            }
+        }
 
     }
 
+    private static class DSU {
+        public int[] dsu;
+        public int[] size;
 
+        public DSU(int N) {
+            dsu = new int[N + 1];
+            size = new int[N + 1];
+            for (int i = 0; i <= N; i++) {
+                dsu[i] = i;
+                size[i] = 1;
+            }
+        }
+
+        //with path compression, no find by rank
+        public int find(int x) {
+            return dsu[x] == x ? x : (dsu[x] = find(dsu[x]));
+        }
+
+        public void merge(int x, int y) {
+            int fx = find(x);
+            int fy = find(y);
+            dsu[fx] = fy;
+        }
+
+        public void merge(int x, int y, boolean sized) {
+            int fx = find(x);
+            int fy = find(y);
+            size[fy] += size[fx];
+            dsu[fx] = fy;
+        }
+    }
 
     private static int allFourMatrix(char[][] arr, int i, int j) {
         int n = arr.length;

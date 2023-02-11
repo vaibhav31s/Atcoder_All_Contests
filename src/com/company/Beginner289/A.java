@@ -1,4 +1,4 @@
-package com.company.Beginer288;
+package com.company.Beginner289;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -8,21 +8,23 @@ import java.util.*;
 
 import static java.lang.System.out;
 
-public class B {
+public class A {
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        int m = sc.nextInt();
-        PriorityQueue<String> s = new PriorityQueue<>();
-        for(int i = 0; i < t; i++) {
-            if(i >= m) continue;
-            s.add(sc.next());
+//        int n = sc.nextInt();
+        String s = sc.next();
+//        String answer = " ";
+
+        StringBuilder sb= new StringBuilder();
+        for(char ch : s.toCharArray()){
+            if(ch == '1') sb.append('0');
+            else sb.append('1');
         }
-        while (m-->0) out.println(s.poll());
+
+        out.println(sb);
+
 
     }
-
-
 
     private static int allFourMatrix(char[][] arr, int i, int j) {
         int n = arr.length;

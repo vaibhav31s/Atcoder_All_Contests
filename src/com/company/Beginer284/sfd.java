@@ -4,7 +4,7 @@ import java.util.*;
 
 import static java.lang.System.out;
 
-public class C {
+public class sfd {
     public static void main(String hi[]) throws Exception {
        FastScanner sc = new FastScanner();
 //        int N = Integer.parseInt(st.nextToken());
